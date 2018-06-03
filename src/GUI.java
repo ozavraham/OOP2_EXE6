@@ -30,6 +30,10 @@ public class GUI extends JFrame {
 	
 	protected JButton btnCalc;
 	protected JButton btnClear;
+	
+	public static JLabel result;
+	public static JLabel timeStamp;
+	public static JLabel usedThreads;
 
 	/**
 	 * Launch the application.
@@ -83,17 +87,17 @@ public class GUI extends JFrame {
 		threadsLabel.setBounds(17, 61, 88, 16);
 		panel.add(threadsLabel);
 
-		JLabel result = new JLabel("result");
+		result = new JLabel("");
 		result.setBounds(201, 6, 202, 16);
 		panel.add(result);
 
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(201, 33, 61, 16);
-		panel.add(lblNewLabel_2);
+		timeStamp = new JLabel("New label");
+		timeStamp.setBounds(201, 33, 61, 16);
+		panel.add(timeStamp);
 
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setBounds(201, 61, 61, 16);
-		panel.add(lblNewLabel_3);
+		usedThreads = new JLabel("New label");
+		usedThreads.setBounds(201, 61, 61, 16);
+		panel.add(usedThreads);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -142,7 +146,7 @@ public class GUI extends JFrame {
 		panel_1.add(threadInput, gbc_threadInput);
 		threadInput.setColumns(10);
 
-		JButton btnClear = new JButton("Clear");
+		this.btnClear = new JButton("Clear");
 		GridBagConstraints gbc_btnClear = new GridBagConstraints();
 		gbc_btnClear.anchor = GridBagConstraints.NORTH;
 		gbc_btnClear.fill = GridBagConstraints.HORIZONTAL;
@@ -151,7 +155,7 @@ public class GUI extends JFrame {
 		gbc_btnClear.gridy = 2;
 		panel_1.add(btnClear, gbc_btnClear);
 
-		JButton btnCalc = new JButton("CALCULATE!");
+		this.btnCalc = new JButton("CALCULATE!");
 		GridBagConstraints gbc_btnCalc = new GridBagConstraints();
 		gbc_btnCalc.anchor = GridBagConstraints.NORTH;
 		gbc_btnCalc.fill = GridBagConstraints.HORIZONTAL;
@@ -180,7 +184,7 @@ public class GUI extends JFrame {
 	/* Need to implement */
 	public boolean hasEmptyField() {
 		boolean hasEmptyField = false;
-		
+		if (numInput.getText().equals("") || threadInput.getText().equals("")) hasEmptyField = true;
 		return hasEmptyField;
 		
 	}
@@ -201,7 +205,16 @@ public class GUI extends JFrame {
 				int threads = Integer.parseInt(threadInput.getText());
 				Controller control = new Controller(num,threads);
 			}
-			catch (IllegalArgumentException exception) {
+			catch (Exception exception) {
+				String string = "";
+				if (numInput.getText().equals("") || threadInput.getText().equals("")){
+					string += "\"Missing Input!\\n\";";
+					if (numInput.getText().equals("")) string += "* Missing number\n";
+					if (threadInput.getText().equals("")) string+= "* Missing threads number\n";
+				}
+				else {
+					string += "Invalid input!";
+				}
 				exception.printStackTrace();
 			}
 		}
