@@ -20,8 +20,9 @@ import javax.swing.JTextArea;
  */
 
 /* Building the frame using Window Builder */
-public class GUI extends JFrame {
+public class Main extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	protected JPanel contentPane;
 	protected static JTextField numInput;
 	protected static JTextField threadInput;
@@ -39,7 +40,7 @@ public class GUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI frame = new GUI();
+					Main frame = new Main();
 					frame.addClearListener(new ClearListener());
 					frame.addSubmitListener(new SubmitListener());
 					frame.setVisible(true);
@@ -53,7 +54,7 @@ public class GUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUI() {
+	public Main() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -199,11 +200,11 @@ public class GUI extends JFrame {
 	}
 
 	public JTextField getInput() {
-		return GUI.numInput;
+		return Main.numInput;
 	}
 
 	public JTextField getThreadsInput() {
-		return GUI.threadInput;
+		return Main.threadInput;
 	}
 
 	/* Implement listener to the Calculation button */
@@ -211,15 +212,15 @@ public class GUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
-				GUI.textArea.setText("");
+				Main.textArea.setText("");
 				int num = Integer.parseInt(numInput.getText());
 				int threads = Integer.parseInt(threadInput.getText());
-				Controller control = new Controller(num,threads);
+				new Controller(num,threads);
 			}
 			/* Handel exceptions */
 			catch (Exception exception) {
 				String string = "";
-				if (GUI.hasEmptyField()){
+				if (Main.hasEmptyField()){
 					string += "Missing Input!\n";
 					if (numInput.getText().equals("")) string += "* Missing number\n";
 					if (threadInput.getText().equals("")) string+= "* Missing threads number\n";
@@ -242,7 +243,7 @@ public class GUI extends JFrame {
 			threadInput.setText("");
 			result.setText("");
 			timeStamp.setText("");
-			GUI.textArea.setText("");
+			Main.textArea.setText("");
 		}
 	}
 }
