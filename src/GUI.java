@@ -1,10 +1,15 @@
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
 import java.awt.GridBagLayout;
@@ -12,6 +17,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JTextArea;
 
 /**
  * 
@@ -24,16 +30,17 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame {
 
 	protected JPanel contentPane;
-	
+
 	protected static JTextField numInput;
 	protected static JTextField threadInput;
-	
+
 	protected JButton btnCalc;
 	protected JButton btnClear;
-	
+
 	public static JLabel result;
 	public static JLabel timeStamp;
-	public static JLabel usedThreads;
+
+	public static JTextArea textArea;
 
 	/**
 	 * Launch the application.
@@ -69,45 +76,19 @@ public class GUI extends JFrame {
 		lblAllRightsRecived.setBounds(143, 257, 151, 16);
 		contentPane.add(lblAllRightsRecived);
 
-		JPanel panel = new JPanel();
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(6, 148, 438, 98);
-		contentPane.add(panel);
-		panel.setLayout(null);
 
-		JLabel answerLabel = new JLabel("Is it a Prime Number?");
-		answerLabel.setBounds(17, 6, 165, 16);
-		panel.add(answerLabel);
 
-		JLabel timeLabel = new JLabel("Time Elapsed:");
-		timeLabel.setBounds(17, 33, 87, 16);
-		panel.add(timeLabel);
 
-		JLabel threadsLabel = new JLabel("Threads used:");
-		threadsLabel.setBounds(17, 61, 88, 16);
-		panel.add(threadsLabel);
-
-		result = new JLabel("");
-		result.setBounds(201, 6, 202, 16);
-		panel.add(result);
-
-		timeStamp = new JLabel("New label");
-		timeStamp.setBounds(201, 33, 61, 16);
-		panel.add(timeStamp);
-
-		usedThreads = new JLabel("New label");
-		usedThreads.setBounds(201, 61, 61, 16);
-		panel.add(usedThreads);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_1.setBounds(6, 29, 438, 107);
+		panel_1.setBounds(6, 29, 438, 138);
 		contentPane.add(panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{208, 95, 115, 0};
-		gbl_panel_1.rowHeights = new int[]{26, 32, 29, 0};
+		gbl_panel_1.rowHeights = new int[]{26, 32, 29, 0, 0, 0};
 		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 
 		JLabel instruct1 = new JLabel("Enter a natural number to find the prime factors:");
@@ -139,7 +120,7 @@ public class GUI extends JFrame {
 
 		threadInput = new JTextField();
 		GridBagConstraints gbc_threadInput = new GridBagConstraints();
-		gbc_threadInput.insets = new Insets(0, 0, 5, 5);
+		gbc_threadInput.insets = new Insets(0, 0, 5, 0);
 		gbc_threadInput.fill = GridBagConstraints.HORIZONTAL;
 		gbc_threadInput.gridx = 2;
 		gbc_threadInput.gridy = 1;
@@ -150,19 +131,64 @@ public class GUI extends JFrame {
 		GridBagConstraints gbc_btnClear = new GridBagConstraints();
 		gbc_btnClear.anchor = GridBagConstraints.NORTH;
 		gbc_btnClear.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnClear.insets = new Insets(0, 0, 0, 5);
+		gbc_btnClear.insets = new Insets(0, 0, 5, 5);
 		gbc_btnClear.gridx = 0;
 		gbc_btnClear.gridy = 2;
 		panel_1.add(btnClear, gbc_btnClear);
 
 		this.btnCalc = new JButton("CALCULATE!");
 		GridBagConstraints gbc_btnCalc = new GridBagConstraints();
+		gbc_btnCalc.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCalc.anchor = GridBagConstraints.NORTH;
 		gbc_btnCalc.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCalc.gridwidth = 2;
 		gbc_btnCalc.gridx = 1;
 		gbc_btnCalc.gridy = 2;
 		panel_1.add(btnCalc, gbc_btnCalc);
+
+		JLabel answerLabel = new JLabel("Is it a Prime Number?");
+		GridBagConstraints gbc_answerLabel = new GridBagConstraints();
+		gbc_answerLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_answerLabel.gridx = 0;
+		gbc_answerLabel.gridy = 3;
+		panel_1.add(answerLabel, gbc_answerLabel);
+
+		result = new JLabel("");
+		GridBagConstraints gbc_result = new GridBagConstraints();
+		gbc_result.insets = new Insets(0, 0, 5, 5);
+		gbc_result.gridx = 1;
+		gbc_result.gridy = 3;
+		panel_1.add(result, gbc_result);
+
+		JLabel timeLabel = new JLabel("Time Elapsed:");
+		GridBagConstraints gbc_timeLabel = new GridBagConstraints();
+		gbc_timeLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_timeLabel.gridx = 0;
+		gbc_timeLabel.gridy = 4;
+		panel_1.add(timeLabel, gbc_timeLabel);
+
+		timeStamp = new JLabel("");
+		GridBagConstraints gbc_timeStamp = new GridBagConstraints();
+		gbc_timeStamp.insets = new Insets(0, 0, 0, 5);
+		gbc_timeStamp.gridx = 1;
+		gbc_timeStamp.gridy = 4;
+		panel_1.add(timeStamp, gbc_timeStamp);
+
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBounds(6, 169, 438, 86);
+
+
+		textArea = new JTextArea();
+		textArea.setBounds(6, 6, 426, 74);
+
+		JScrollPane scroll = new JScrollPane(textArea);
+
+		panel.add(scroll, BorderLayout.CENTER);
+
+		contentPane.add(panel);
+
+
 
 		JLabel lblPrimeNumbersCalculation = new JLabel("Prime Numbers Calculation");
 		lblPrimeNumbersCalculation.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
@@ -180,27 +206,28 @@ public class GUI extends JFrame {
 	public void addClearListener(ActionListener event) {
 		btnClear.addActionListener(event);
 	}
-	
+
 	/* Need to implement */
 	public boolean hasEmptyField() {
 		boolean hasEmptyField = false;
 		if (numInput.getText().equals("") || threadInput.getText().equals("")) hasEmptyField = true;
 		return hasEmptyField;
-		
+
 	}
-	
+
 	public JTextField getInput() {
 		return GUI.numInput;
 	}
-	
+
 	public JTextField getThreadsInput() {
 		return GUI.threadInput;
 	}
-	
+
 	public static class SubmitListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
+				GUI.textArea.setText("");
 				int num = Integer.parseInt(numInput.getText());
 				int threads = Integer.parseInt(threadInput.getText());
 				Controller control = new Controller(num,threads);
@@ -208,23 +235,28 @@ public class GUI extends JFrame {
 			catch (Exception exception) {
 				String string = "";
 				if (numInput.getText().equals("") || threadInput.getText().equals("")){
-					string += "\"Missing Input!\\n\";";
+					string += "Missing Input!\n";
 					if (numInput.getText().equals("")) string += "* Missing number\n";
 					if (threadInput.getText().equals("")) string+= "* Missing threads number\n";
+					JOptionPane.showMessageDialog(null, string);
 				}
 				else {
 					string += "Invalid input!";
+					JOptionPane.showMessageDialog(null, string);
 				}
 				exception.printStackTrace();
 			}
 		}
 	}
-	
+
 	public static class ClearListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			numInput.setText("");
 			threadInput.setText("");
+			result.setText("");
+			timeStamp.setText("");
+			GUI.textArea.setText("");
 		}
 	}
 }

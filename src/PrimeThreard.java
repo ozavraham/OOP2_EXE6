@@ -22,8 +22,14 @@ public class PrimeThreard extends Thread{
 	/* Code here */
 	public void run() {	
 		for (int i=start ; i<end ; i++) {
-			if (Controller.number%i == 0) Controller.isPrimeNumber = false;
+			if (Controller.number%i == 0) {
+				Controller.isPrimeNumber = false;
+				System.out.println("Thread #" + (this.id+1) + " found " + Controller.number + " is divided with " + i + " without rest!");
+				GUI.textArea.append("Thread #" + (this.id+1) + " found " + Controller.number + " is divided with " + i + " without rest!\n");
+			}
 		} 
+		System.out.println("Thread #" + (this.id+1) + " finished.");
+		GUI.textArea.append("Thread #" + (this.id +1) + " finished.\n");
 	}
 	
 	public String toString() {
