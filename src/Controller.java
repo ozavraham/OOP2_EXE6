@@ -1,3 +1,7 @@
+import java.lang.reflect.InvocationTargetException;
+
+import javax.swing.SwingUtilities;
+
 /**
  * Controller Class
  * Creating the threads according to the input, writing to the Console and Logs
@@ -14,8 +18,8 @@ public class Controller {
 	/* If thread detects that the number is not prime number, set the value to False */
 	public static boolean isPrimeNumber;
 	
-	public Controller(int num, int numOfthreads) {
-		Main.textArea.append("Strting Calculation...\n");
+	public Controller(int num, int numOfthreads) throws InvocationTargetException, InterruptedException {
+		Main.textArea.append("Starting Calculation...\n");
 		/* Assuming it is a prime number */
 		Controller.isPrimeNumber = true;
 		Controller.number = num;
@@ -24,7 +28,7 @@ public class Controller {
 		num = (int) Math.sqrt(num);
 		/* If the sqare of number is smaller then the number of threads, we will have gap of 0, which is useless */
 		if (num<numOfthreads) {
-			Main.textArea.append("Reducing Thread # to " + num + " Because the thread number was \n bigger then the Square of num.\n");
+			Main.textArea.append("Reducing Thread # to " + num + " Because the thread number was \nbigger then the Square of num.\n");
 			numOfthreads = num;
 			gap = num/numOfthreads;
 		}
@@ -56,14 +60,14 @@ public class Controller {
 			}
 		}
 		long elapsedTime = System.currentTimeMillis() - startTime;
-		if (Controller.isPrimeNumber) {
+		if (isPrimeNumber) {
 			Main.result.setText("<html> <font color='green'> YES! </font> </html>");
 		}
 		else Main.result.setText("<html> <font color='red'> NO! </font> </html>");
 		Main.timeStamp.setText(elapsedTime + "ms");
 		Main.textArea.append("Finished calculation in " + elapsedTime + " ms.\n");
 		Main.textArea.append("Enter new number to calculate.\n");
-		Controller.isPrimeNumber = true;
+		isPrimeNumber = true;
 	}
 }
 
