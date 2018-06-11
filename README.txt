@@ -11,18 +11,18 @@ Writing program which execute amount of Threads according to the user request, e
 a gap between 2 -> Square(number) to find reminder of 0.
 
 // Goal //
-Use our new knowledge in Java programming and implement a basic GUI which recieve number of threads and specific natural 
+Use our new knowledge in Java programming and implement a basic GUI which receive number of threads and specific natural 
 Number, and presenting the answer, in addition to the logs and elapsed time.
 
 // Classes //
 * Main - The GUI builded with Window Builder, and the Main method to run.
-* PrimeThread - Extends Thread class, recieve i for id, start and end point.
+* PrimeThread - Extends Thread class, receive i for id, start and end point.
 * Controller - The logic part, Creating the Threads and starting them, presenting the result and logs on the GUI.
 Other files attached: Readme.txt
 
 // Definitions // 
 		
-* Prime Number: A Natrual number which divides without reminder only with 1 and himself.
+* Prime Number: A Natural number which divides without reminder only with 1 and himself.
 https://en.wikipedia.org/wiki/Prime_number
 
 // Running the program //
